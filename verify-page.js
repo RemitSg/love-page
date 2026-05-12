@@ -21,6 +21,7 @@ assert(heroMatch, "Missing hero section");
 
 const hero = heroMatch ? heroMatch[0] : "";
 assert(hero.includes("<h1 id=\"title\">给最特别的你</h1>"), "Hero keeps the main title");
+assert(pages.every((page) => page.includes('href="styles.css?v=20260512-hero-fix"')), "Every page loads the cache-busted stylesheet");
 assert(!hero.includes("intro"), "Hero should not contain intro copy");
 assert(!hero.includes("A tiny page for you"), "Hero should not contain eyebrow text");
 assert((hero.match(/class="button/g) || []).length >= 3, "Hero should provide navigation buttons");
@@ -30,9 +31,10 @@ assert(html.includes('src="home-particles.js?v=20260512-distance-fix"'), "Home l
 assert(pages.every((page) => page.includes('class="particle-canvas"')), "Every page includes the particle canvas");
 assert(pages.every((page) => page.includes('src="home-particles.js?v=20260512-distance-fix"')), "Every page loads the cache-busted particle script");
 assert(styles.includes("assets/StarrySky_x4.png"), "All pages use the StarrySky background asset");
-assert(styles.includes(".hero {\n  background: rgba(255, 255, 255, 0.3);"), "Home panel should be more transparent");
+assert(styles.includes(".hero {\n  background: rgba(255, 255, 255, 0.14);"), "Home panel should be much more transparent");
 assert(styles.includes("white-space: nowrap;"), "Home title should stay on one line");
 assert(styles.includes("max-width: none;"), "Home title should not be constrained to a narrow width");
+assert(styles.includes("font-size: clamp(3rem, 5.8vw, 6.4rem);"), "Home title should fit on one line at desktop sizes");
 assert(particles.includes("pointerVelocity"), "Particle script tracks pointer velocity");
 assert(particles.includes("homeX") && particles.includes("homeY"), "Particles keep original positions");
 assert(particles.includes("requestAnimationFrame"), "Particles animate smoothly");
