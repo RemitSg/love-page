@@ -26,9 +26,9 @@ assert(!hero.includes("A tiny page for you"), "Hero should not contain eyebrow t
 assert((hero.match(/class="button/g) || []).length >= 3, "Hero should provide navigation buttons");
 
 assert(html.includes('class="particle-canvas"'), "Home includes the particle canvas");
-assert(html.includes('src="home-particles.js"'), "Home loads the particle script");
+assert(html.includes('src="home-particles.js?v=20260512-distance-fix"'), "Home loads the cache-busted particle script");
 assert(pages.every((page) => page.includes('class="particle-canvas"')), "Every page includes the particle canvas");
-assert(pages.every((page) => page.includes('src="home-particles.js"')), "Every page loads the particle script");
+assert(pages.every((page) => page.includes('src="home-particles.js?v=20260512-distance-fix"')), "Every page loads the cache-busted particle script");
 assert(styles.includes("assets/StarrySky_x4.png"), "All pages use the StarrySky background asset");
 assert(particles.includes("pointerVelocity"), "Particle script tracks pointer velocity");
 assert(particles.includes("homeX") && particles.includes("homeY"), "Particles keep original positions");
@@ -41,6 +41,8 @@ assert(!particles.includes("Math.random() * 2.8"), "Particles should not use ran
 assert(particles.includes("const FOLLOW_RADIUS = 300"), "Particles follow when currently close enough to the pointer");
 assert(particles.includes("distanceToPointer < FOLLOW_RADIUS"), "Particles use current pointer distance to follow");
 assert(!particles.includes("Math.hypot(pointer.x - particle.homeX"), "Particles should not use initial home position for follow checks");
+assert(particles.includes("particle.x + (pointer.x - particle.x) * pull"), "Follow target uses current particle position");
+assert(!particles.includes("(pointer.x - particle.homeX) *"), "Follow target should not pull from the original home position");
 assert(particles.includes("const FAST_POINTER_SPEED = 56"), "Fast mouse movement releases particles");
 assert(particles.includes("pointer.pointerVelocity < FAST_POINTER_SPEED && distanceToPointer < FOLLOW_RADIUS"), "Follow depends on speed and current distance");
 
