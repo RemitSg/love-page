@@ -1,6 +1,8 @@
 const canvas = document.querySelector(".particle-canvas");
 const ctx = canvas.getContext("2d");
 const particles = [];
+const PARTICLE_SIZE = 1.15;
+const FOLLOW_RADIUS = 300;
 const pointer = {
   x: 0,
   y: 0,
@@ -17,7 +19,7 @@ let lastTime = performance.now();
 
 function createParticles() {
   particles.length = 0;
-  const count = Math.min(170, Math.max(80, Math.floor((width * height) / 12000)));
+  const count = Math.min(320, Math.max(160, Math.floor((width * height) / 6200)));
 
   for (let i = 0; i < count; i += 1) {
     const homeX = Math.random() * width;
@@ -29,8 +31,8 @@ function createParticles() {
       y: homeY,
       vx: 0,
       vy: 0,
-      size: 1.4 + Math.random() * 2.8,
-      alpha: 0.42 + Math.random() * 0.5,
+      size: PARTICLE_SIZE,
+      alpha: 0.34 + Math.random() * 0.36,
       drift: Math.random() * Math.PI * 2
     });
   }
@@ -94,8 +96,8 @@ function animate(now) {
     const distanceToPointer = pointer.active
       ? Math.hypot(pointer.x - particle.x, pointer.y - particle.y)
       : Infinity;
-    const canFollow = pointer.active && pointer.pointerVelocity < 44 && distanceToPointer < 190;
-    const pull = canFollow ? Math.max(0, 1 - distanceToPointer / 190) : 0;
+    const canFollow = pointer.active && pointer.pointerVelocity < 44 && distanceToPointer < FOLLOW_RADIUS;
+    const pull = canFollow ? Math.max(0, 1 - distanceToPointer / FOLLOW_RADIUS) : 0;
 
     const driftX = Math.cos(now * 0.00035 + particle.drift) * 7;
     const driftY = Math.sin(now * 0.00042 + particle.drift) * 7;
