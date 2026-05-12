@@ -25,12 +25,9 @@ body {
   line-height: 1.6;
   color: var(--ink);
   background:
-    radial-gradient(circle at 16% 12%, rgba(217, 79, 115, 0.22), transparent 28rem),
-    linear-gradient(135deg, var(--paper), #f4fbf7 52%, #fff1f5);
-}
-
-.home-page {
-  overflow: hidden;
+    linear-gradient(135deg, rgba(44, 24, 36, 0.2), rgba(8, 15, 32, 0.18)),
+    url("assets/StarrySky_x4.png") center / cover fixed,
+    #101423;
 }
 
 .particle-canvas {
@@ -62,10 +59,10 @@ a {
 
 .hero,
 .panel {
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.66);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 22px 70px rgba(110, 64, 78, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 22px 70px rgba(5, 9, 18, 0.24);
 }
 
 .hero {
