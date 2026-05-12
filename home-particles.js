@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 const particles = [];
 const PARTICLE_COUNT = 1000;
 const PARTICLE_SIZE = 2.3;
+const FOLLOW_RADIUS = 300;
 const FAST_POINTER_SPEED = 56;
 const pointer = {
   x: 0,
@@ -79,8 +80,8 @@ function animate(now) {
     const distanceToPointer = pointer.active
       ? Math.hypot(pointer.x - particle.x, pointer.y - particle.y)
       : Infinity;
-    const canFollow = pointer.active && pointer.pointerVelocity < FAST_POINTER_SPEED;
-    const pull = canFollow ? 1 / (1 + distanceToPointer / 360) : 0;
+    const canFollow = pointer.active && pointer.pointerVelocity < FAST_POINTER_SPEED && distanceToPointer < FOLLOW_RADIUS;
+    const pull = canFollow ? Math.max(0, 1 - distanceToPointer / FOLLOW_RADIUS) : 0;
 
     const driftX = Math.cos(now * 0.00035 + particle.drift) * 7;
     const driftY = Math.sin(now * 0.00042 + particle.drift) * 7;
