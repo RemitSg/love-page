@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>许愿 | 给你的一个小宇宙</title>
+    <meta name="description" content="把三个愿望送进星空。">
+    <link rel="stylesheet" href="styles.css?v=20260512-expansion">
+  </head>
+  <body>
+    <canvas class="particle-canvas" aria-hidden="true"></canvas>
+    <header class="site-topbar">
+      <div class="love-timer" aria-label="我们在一起的时间"></div>
+      <button class="music-toggle" type="button" aria-label="播放背景音乐">♪</button>
+    </header>
+    <main class="page-shell content-shell">
+      <section class="panel single-page wish-page" aria-labelledby="wish-title">
+        <a class="back-link top-link" href="index.html">回到首页</a>
+        <p class="section-kicker">Wish</p>
+        <h1 id="wish-title">把愿望交给星空</h1>
+        <form class="wish-form">
+          <input class="wish-input" type="text" maxlength="36" placeholder="写下一个愿望">
+          <button class="button primary" type="submit">许愿</button>
+        </form>
+        <p class="wish-count">还可以许 <strong>3</strong> 个愿望</p>
+        <div class="wish-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="home-particles.js?v=20260512-distance-fix"></script>
+    <script src="shared.js?v=20260512-expansion"></script>
+    <script src="wish.js?v=20260512-expansion"></script>
+  </body>
+</html>
