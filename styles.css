@@ -140,13 +140,12 @@ a {
 .hero,
 .panel {
   border: 1px solid rgba(255, 255, 255, 0.32);
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(14px);
   box-shadow: 0 22px 70px rgba(5, 9, 18, 0.24);
 }
 
 .hero {
-  background: rgba(255, 255, 255, 0.14);
   min-height: calc(100vh - 96px);
   display: grid;
   align-content: center;
@@ -262,7 +261,7 @@ h3 {
 
 .button.ghost {
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.42);
 }
 
 .button:disabled,
@@ -548,6 +547,11 @@ input:disabled {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 16px;
+}
+
+.admin-note {
+  max-width: 760px;
+  color: var(--muted);
 }
 
 .json-output {
