@@ -33,7 +33,7 @@ assert(particles.includes("homeX") && particles.includes("homeY"), "Particles ke
 assert(particles.includes("requestAnimationFrame"), "Particles animate smoothly");
 assert(particles.includes("Math.hypot"), "Particles use smooth distance checks");
 assert(particles.includes("const PARTICLE_COUNT = 1000"), "Home uses exactly 1000 particles");
-assert(particles.includes("const PARTICLE_SIZE = 1.15"), "Particles use a smaller fixed size");
+assert(particles.includes("const PARTICLE_SIZE = 2.3"), "Particles use the requested fixed size");
 assert(particles.includes("size: PARTICLE_SIZE"), "Every particle has the same size");
 assert(!particles.includes("Math.random() * 2.8"), "Particles should not use random sizes");
 assert(!particles.includes("distanceToPointer < FOLLOW_RADIUS"), "Particles should not require a starting distance to follow");
