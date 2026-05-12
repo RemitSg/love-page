@@ -2,6 +2,7 @@ const fs = require("fs");
 
 const html = fs.readFileSync("index.html", "utf8");
 const script = fs.readFileSync("script.js", "utf8");
+const particles = fs.readFileSync("home-particles.js", "utf8");
 const letter = fs.readFileSync("letter.html", "utf8");
 const timeline = fs.readFileSync("timeline.html", "utf8");
 const whisper = fs.readFileSync("whisper.html", "utf8");
@@ -21,6 +22,16 @@ assert(hero.includes("<h1 id=\"title\">给最特别的你</h1>"), "Hero keeps th
 assert(!hero.includes("intro"), "Hero should not contain intro copy");
 assert(!hero.includes("A tiny page for you"), "Hero should not contain eyebrow text");
 assert((hero.match(/class="button/g) || []).length >= 3, "Hero should provide navigation buttons");
+
+assert(html.includes('class="particle-canvas"'), "Home includes the particle canvas");
+assert(html.includes('src="home-particles.js"'), "Home loads the particle script");
+assert(!letter.includes("home-particles.js"), "Letter page does not load home particles");
+assert(!timeline.includes("home-particles.js"), "Timeline page does not load home particles");
+assert(!whisper.includes("home-particles.js"), "Whisper page does not load home particles");
+assert(particles.includes("pointerVelocity"), "Particle script tracks pointer velocity");
+assert(particles.includes("homeX") && particles.includes("homeY"), "Particles keep original positions");
+assert(particles.includes("requestAnimationFrame"), "Particles animate smoothly");
+assert(particles.includes("Math.hypot"), "Particles use smooth distance checks");
 
 assert(!html.includes('href="#letter"'), "Home should not use letter anchor links");
 assert(!html.includes('href="#timeline"'), "Home should not use timeline anchor links");
