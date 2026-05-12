@@ -10,27 +10,25 @@
   <body>
     <main class="page-shell">
       <section class="hero" aria-labelledby="title">
-        <p class="eyebrow">A tiny page for you</p>
         <h1 id="title">给最特别的你</h1>
-        <p class="intro">
-          我把一些想说的话放在这里。以后它可以慢慢长大，放进我们的照片、纪念日、旅行和那些只有我们懂的小事。
-        </p>
-        <div class="actions">
-          <a class="button primary" href="#letter">读一封信</a>
-          <a class="button ghost" href="#timeline">看我们的时间线</a>
-        </div>
+        <nav class="actions" aria-label="礼物入口">
+          <a class="button primary" href="#letter">信</a>
+          <a class="button ghost" href="#timeline">时间线</a>
+          <a class="button ghost" href="#whisper">悄悄话</a>
+        </nav>
       </section>
 
-      <section class="letter" id="letter" aria-labelledby="letter-title">
+      <section class="letter panel" id="letter" aria-labelledby="letter-title">
         <p class="section-kicker">Letter</p>
         <h2 id="letter-title">想认真告诉你</h2>
         <p>
           遇见你以后，很多普通的日子都变得有光。这个网页只是一个小小的开始，
           但我想让它成为一个属于我们的地方：在这里收藏喜欢的瞬间，也收藏我一次次选择你的心意。
         </p>
+        <a class="back-link" href="#title">回到首页</a>
       </section>
 
-      <section class="timeline" id="timeline" aria-labelledby="timeline-title">
+      <section class="timeline panel" id="timeline" aria-labelledby="timeline-title">
         <p class="section-kicker">Moments</p>
         <h2 id="timeline-title">我们的时间线</h2>
         <div class="moments">
@@ -50,11 +48,13 @@
             <p>把未来想一起完成的小愿望放在这里，让网页跟着你们的故事继续更新。</p>
           </article>
         </div>
+        <a class="back-link" href="#title">回到首页</a>
       </section>
 
-      <section class="promise" aria-label="一句悄悄话">
+      <section class="promise panel" id="whisper" aria-label="一句悄悄话">
         <button class="heart-button" type="button" aria-label="点亮爱心">❤</button>
         <p id="promise-text">点一下爱心，收下一句悄悄话。</p>
+        <a class="back-link" href="#title">回到首页</a>
       </section>
     </main>
 
