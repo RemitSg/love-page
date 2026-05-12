@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>给你的一个小宇宙</title>
     <meta name="description" content="一份可以部署到 GitHub Pages 的浪漫网页礼物。">
-    <link rel="stylesheet" href="styles.css?v=20260512-hero-fix">
+    <link rel="stylesheet" href="styles.css?v=20260512-expansion">
   </head>
   <body class="home-page">
     <canvas class="particle-canvas" aria-hidden="true"></canvas>
+    <header class="site-topbar">
+      <div class="love-timer" aria-label="我们在一起的时间"></div>
+      <button class="music-toggle" type="button" aria-label="播放背景音乐">♪</button>
+    </header>
     <main class="page-shell">
       <section class="hero" aria-labelledby="title">
         <h1 id="title">给最特别的你</h1>
@@ -16,9 +20,12 @@
           <a class="button primary" href="letter.html">信</a>
           <a class="button ghost" href="timeline.html">时间线</a>
           <a class="button ghost" href="whisper.html">悄悄话</a>
+          <a class="button ghost" href="wish.html">许愿</a>
+          <a class="button ghost" href="gift.html">礼物卡</a>
         </nav>
       </section>
     </main>
     <script src="home-particles.js?v=20260512-distance-fix"></script>
+    <script src="shared.js?v=20260512-expansion"></script>
   </body>
 </html>
