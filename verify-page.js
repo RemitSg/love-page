@@ -32,6 +32,11 @@ assert(particles.includes("pointerVelocity"), "Particle script tracks pointer ve
 assert(particles.includes("homeX") && particles.includes("homeY"), "Particles keep original positions");
 assert(particles.includes("requestAnimationFrame"), "Particles animate smoothly");
 assert(particles.includes("Math.hypot"), "Particles use smooth distance checks");
+assert(particles.includes("const PARTICLE_SIZE = 1.15"), "Particles use a smaller fixed size");
+assert(particles.includes("size: PARTICLE_SIZE"), "Every particle has the same size");
+assert(!particles.includes("Math.random() * 2.8"), "Particles should not use random sizes");
+assert(particles.includes("const FOLLOW_RADIUS = 300"), "Particles follow from a longer distance");
+assert(particles.includes("Math.min(320, Math.max(160"), "Home has more particles");
 
 assert(!html.includes('href="#letter"'), "Home should not use letter anchor links");
 assert(!html.includes('href="#timeline"'), "Home should not use timeline anchor links");
