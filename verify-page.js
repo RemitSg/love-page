@@ -30,6 +30,9 @@ assert(html.includes('src="home-particles.js?v=20260512-distance-fix"'), "Home l
 assert(pages.every((page) => page.includes('class="particle-canvas"')), "Every page includes the particle canvas");
 assert(pages.every((page) => page.includes('src="home-particles.js?v=20260512-distance-fix"')), "Every page loads the cache-busted particle script");
 assert(styles.includes("assets/StarrySky_x4.png"), "All pages use the StarrySky background asset");
+assert(styles.includes(".hero {\n  background: rgba(255, 255, 255, 0.3);"), "Home panel should be more transparent");
+assert(styles.includes("white-space: nowrap;"), "Home title should stay on one line");
+assert(styles.includes("max-width: none;"), "Home title should not be constrained to a narrow width");
 assert(particles.includes("pointerVelocity"), "Particle script tracks pointer velocity");
 assert(particles.includes("homeX") && particles.includes("homeY"), "Particles keep original positions");
 assert(particles.includes("requestAnimationFrame"), "Particles animate smoothly");
