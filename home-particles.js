@@ -1,8 +1,9 @@
 const canvas = document.querySelector(".particle-canvas");
 const ctx = canvas.getContext("2d");
 const particles = [];
+const PARTICLE_COUNT = 1000;
 const PARTICLE_SIZE = 1.15;
-const FOLLOW_RADIUS = 300;
+const FAST_POINTER_SPEED = 56;
 const pointer = {
   x: 0,
   y: 0,
@@ -19,9 +20,8 @@ let lastTime = performance.now();
 
 function createParticles() {
   particles.length = 0;
-  const count = Math.min(320, Math.max(160, Math.floor((width * height) / 6200)));
 
-  for (let i = 0; i < count; i += 1) {
+  for (let i = 0; i < PARTICLE_COUNT; i += 1) {
     const homeX = Math.random() * width;
     const homeY = Math.random() * height;
     particles.push({
@@ -64,23 +64,6 @@ function releasePointer() {
 }
 
 function drawParticle(particle) {
-  const glow = ctx.createRadialGradient(
-    particle.x,
-    particle.y,
-    0,
-    particle.x,
-    particle.y,
-    particle.size * 4
-  );
-  glow.addColorStop(0, `rgba(255, 255, 255, ${particle.alpha})`);
-  glow.addColorStop(0.42, `rgba(255, 255, 255, ${particle.alpha * 0.38})`);
-  glow.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(particle.x, particle.y, particle.size * 4, 0, Math.PI * 2);
-  ctx.fill();
-
   ctx.fillStyle = `rgba(255, 255, 255, ${particle.alpha})`;
   ctx.beginPath();
   ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
@@ -96,20 +79,20 @@ function animate(now) {
     const distanceToPointer = pointer.active
       ? Math.hypot(pointer.x - particle.x, pointer.y - particle.y)
       : Infinity;
-    const canFollow = pointer.active && pointer.pointerVelocity < 44 && distanceToPointer < FOLLOW_RADIUS;
-    const pull = canFollow ? Math.max(0, 1 - distanceToPointer / FOLLOW_RADIUS) : 0;
+    const canFollow = pointer.active && pointer.pointerVelocity < FAST_POINTER_SPEED;
+    const pull = canFollow ? 1 / (1 + distanceToPointer / 360) : 0;
 
     const driftX = Math.cos(now * 0.00035 + particle.drift) * 7;
     const driftY = Math.sin(now * 0.00042 + particle.drift) * 7;
     const targetX = canFollow
-      ? particle.homeX + (pointer.x - particle.homeX) * (0.22 + pull * 0.42)
+      ? particle.homeX + (pointer.x - particle.homeX) * (0.16 + pull * 0.5)
       : particle.homeX + driftX;
     const targetY = canFollow
-      ? particle.homeY + (pointer.y - particle.homeY) * (0.22 + pull * 0.42)
+      ? particle.homeY + (pointer.y - particle.homeY) * (0.16 + pull * 0.5)
       : particle.homeY + driftY;
 
-    const spring = canFollow ? 0.028 + pull * 0.04 : 0.018;
-    const damping = canFollow ? 0.86 : 0.9;
+    const spring = canFollow ? 0.02 + pull * 0.046 : 0.018;
+    const damping = canFollow ? 0.87 : 0.9;
 
     particle.vx += (targetX - particle.x) * spring * delta;
     particle.vy += (targetY - particle.y) * spring * delta;
