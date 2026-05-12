@@ -86,10 +86,10 @@ function animate(now) {
     const driftX = Math.cos(now * 0.00035 + particle.drift) * 7;
     const driftY = Math.sin(now * 0.00042 + particle.drift) * 7;
     const targetX = canFollow
-      ? particle.homeX + (pointer.x - particle.homeX) * (0.16 + pull * 0.5)
+      ? particle.x + (pointer.x - particle.x) * pull
       : particle.homeX + driftX;
     const targetY = canFollow
-      ? particle.homeY + (pointer.y - particle.homeY) * (0.16 + pull * 0.5)
+      ? particle.y + (pointer.y - particle.y) * pull
       : particle.homeY + driftY;
 
     const spring = canFollow ? 0.02 + pull * 0.046 : 0.018;
