@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>回复后台 | 给你的一个小宇宙</title>
+    <meta name="description" content="编辑悄悄话关键词和回答。">
+    <link rel="stylesheet" href="styles.css?v=20260512-expansion">
+  </head>
+  <body>
+    <canvas class="particle-canvas" aria-hidden="true"></canvas>
+    <header class="site-topbar">
+      <div class="love-timer" aria-label="我们在一起的时间"></div>
+      <button class="music-toggle" type="button" aria-label="播放背景音乐">♪</button>
+    </header>
+    <main class="page-shell content-shell">
+      <section class="panel admin-page" aria-labelledby="admin-title">
+        <a class="back-link top-link" href="whisper.html">回到悄悄话</a>
+        <p class="section-kicker">Admin</p>
+        <h1 id="admin-title">关键词回复编辑</h1>
+        <form class="admin-form">
+          <input name="keywords" type="text" placeholder="关键词，用逗号分隔">
+          <textarea name="replies" rows="4" placeholder="回答，每行一条"></textarea>
+          <button class="button primary" type="submit">保存规则</button>
+        </form>
+        <div class="admin-rules"></div>
+        <div class="admin-actions">
+          <button class="button ghost export-json" type="button">导出 JSON</button>
+          <button class="button ghost reset-json" type="button">恢复默认</button>
+        </div>
+        <textarea class="json-output" rows="8" readonly aria-label="导出的 JSON"></textarea>
+      </section>
+    </main>
+    <script src="home-particles.js?v=20260512-distance-fix"></script>
+    <script src="shared.js?v=20260512-expansion"></script>
+    <script src="admin.js?v=20260512-expansion"></script>
+  </body>
+</html>
