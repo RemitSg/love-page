@@ -38,9 +38,11 @@ assert(particles.includes("const PARTICLE_COUNT = 1000"), "Home uses exactly 100
 assert(particles.includes("const PARTICLE_SIZE = 2.3"), "Particles use the requested fixed size");
 assert(particles.includes("size: PARTICLE_SIZE"), "Every particle has the same size");
 assert(!particles.includes("Math.random() * 2.8"), "Particles should not use random sizes");
-assert(!particles.includes("distanceToPointer < FOLLOW_RADIUS"), "Particles should not require a starting distance to follow");
+assert(particles.includes("const FOLLOW_RADIUS = 300"), "Particles follow when currently close enough to the pointer");
+assert(particles.includes("distanceToPointer < FOLLOW_RADIUS"), "Particles use current pointer distance to follow");
+assert(!particles.includes("Math.hypot(pointer.x - particle.homeX"), "Particles should not use initial home position for follow checks");
 assert(particles.includes("const FAST_POINTER_SPEED = 56"), "Fast mouse movement releases particles");
-assert(particles.includes("const canFollow = pointer.active && pointer.pointerVelocity < FAST_POINTER_SPEED"), "Follow depends on pointer speed, not distance");
+assert(particles.includes("pointer.pointerVelocity < FAST_POINTER_SPEED && distanceToPointer < FOLLOW_RADIUS"), "Follow depends on speed and current distance");
 
 assert(!html.includes('href="#letter"'), "Home should not use letter anchor links");
 assert(!html.includes('href="#timeline"'), "Home should not use timeline anchor links");
