@@ -12,34 +12,38 @@ function twoDigits(value) {
   return String(value).padStart(2, "0");
 }
 
-function renderTimerUnit(label, value) {
-  return `<span class="timer-unit"><span class="timer-number" data-value="${value}">${value}</span><span class="timer-label">${label}</span></span>`;
+function renderTimerUnit(unit, label, value) {
+  return `<span class="timer-unit" data-unit="${unit}"><span class="timer-number" data-value="${value}">${value}</span><span class="timer-label">${label}</span></span>`;
 }
 
-function updateTimer(timer) {
-  const elapsed = Math.max(0, Math.floor((Date.now() - LOVE_START) / 1000));
+function getTimerValues(now = Date.now()) {
+  const elapsed = Math.max(0, Math.floor((now - LOVE_START) / 1000));
   const time = splitDuration(elapsed);
-  const values = {
+  return {
     days: String(time.days),
     hours: twoDigits(time.hours),
     minutes: twoDigits(time.minutes),
     seconds: twoDigits(time.seconds)
   };
+}
+
+function updateTimer(timer, now = Date.now()) {
+  const values = getTimerValues(now);
 
   if (!timer.dataset.ready) {
     timer.innerHTML = [
       '<span class="timer-prefix">我们已经在一起</span>',
-      renderTimerUnit("天", values.days),
-      renderTimerUnit("时", values.hours),
-      renderTimerUnit("分", values.minutes),
-      renderTimerUnit("秒", values.seconds)
+      renderTimerUnit("days", "天", values.days),
+      renderTimerUnit("hours", "时", values.hours),
+      renderTimerUnit("minutes", "分", values.minutes),
+      renderTimerUnit("seconds", "秒", values.seconds)
     ].join("");
     timer.dataset.ready = "true";
     return;
   }
 
-  for (const [key, value] of Object.entries(values)) {
-    const number = timer.querySelector(`.timer-unit:nth-of-type(${key === "days" ? 1 : key === "hours" ? 2 : key === "minutes" ? 3 : 4}) .timer-number`);
+  for (const [unit, value] of Object.entries(values)) {
+    const number = timer.querySelector(`[data-unit="${unit}"] .timer-number`);
     if (number && number.dataset.value !== value) {
       number.dataset.value = value;
       number.textContent = value;
@@ -52,8 +56,8 @@ function updateTimer(timer) {
 
 function initTimers() {
   const timers = document.querySelectorAll(".love-timer");
-  timers.forEach(updateTimer);
-  window.setInterval(() => timers.forEach(updateTimer), 1000);
+  timers.forEach((timer) => updateTimer(timer));
+  window.setInterval(() => timers.forEach((timer) => updateTimer(timer)), 1000);
 }
 
 function initMusicButton() {
