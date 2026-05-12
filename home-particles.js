@@ -2,7 +2,7 @@ const canvas = document.querySelector(".particle-canvas");
 const ctx = canvas.getContext("2d");
 const particles = [];
 const PARTICLE_COUNT = 1000;
-const PARTICLE_SIZE = 1.15;
+const PARTICLE_SIZE = 2.3;
 const FAST_POINTER_SPEED = 56;
 const pointer = {
   x: 0,
