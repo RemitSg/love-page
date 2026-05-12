@@ -30,6 +30,12 @@ body {
     #101423;
 }
 
+button,
+input,
+textarea {
+  font: inherit;
+}
+
 .particle-canvas {
   position: fixed;
   inset: 0;
@@ -49,6 +55,80 @@ a {
   width: min(1060px, calc(100% - 32px));
   margin: 0 auto;
   padding: 48px 0;
+}
+
+.site-topbar {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(-50%);
+}
+
+.love-timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(10, 15, 30, 0.38);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+}
+
+.timer-prefix {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.timer-unit {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.timer-number {
+  min-width: 2ch;
+  color: #fff;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-number.tick {
+  animation: timerTick 420ms ease;
+}
+
+.timer-label {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+}
+
+.music-toggle,
+.arrow-button {
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: #fff;
+  background: rgba(10, 15, 30, 0.38);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.music-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+.music-toggle.is-on {
+  color: #ffd7e2;
+  border-color: rgba(255, 215, 226, 0.72);
 }
 
 .content-shell {
@@ -185,6 +265,12 @@ h3 {
   background: rgba(255, 255, 255, 0.58);
 }
 
+.button:disabled,
+input:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
 .panel {
   margin-top: 0;
   padding: clamp(28px, 5vw, 56px);
@@ -270,6 +356,254 @@ h3 {
   margin-left: 0;
 }
 
+.admin-link {
+  position: absolute;
+  top: clamp(24px, 4vw, 42px);
+  right: clamp(24px, 4vw, 42px);
+  color: var(--rose-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.wish-form,
+.chat-form,
+.admin-form {
+  display: grid;
+  gap: 12px;
+}
+
+.wish-form,
+.chat-form {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.wish-input,
+.chat-input,
+.admin-form input,
+.admin-form textarea {
+  width: 100%;
+  border: 1px solid rgba(43, 32, 36, 0.16);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.wish-count {
+  color: var(--muted);
+}
+
+.wish-list,
+.admin-rules {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.wish-item,
+.rule-card {
+  padding: 14px 16px;
+  border: 1px solid rgba(43, 32, 36, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.wish-item span {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.wish-item p,
+.rule-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.wish-star,
+.wish-spark {
+  position: fixed;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.wish-star {
+  color: #fff4ad;
+  font-size: 2rem;
+  filter: drop-shadow(0 0 18px rgba(255, 244, 173, 0.8));
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+}
+
+.wish-star.fly {
+  animation: wishFly 1000ms cubic-bezier(0.22, 0.74, 0.24, 1) forwards;
+}
+
+.wish-spark {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  animation: wishSpark 820ms ease-out forwards;
+}
+
+.gift-carousel {
+  display: grid;
+  grid-template-columns: auto minmax(260px, 520px) auto;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.arrow-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.gift-card {
+  position: relative;
+  overflow: hidden;
+  width: min(520px, 70vw);
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.gift-image,
+.scratch-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.gift-image {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 32px;
+  color: var(--ink);
+  text-align: center;
+}
+
+.gift-image strong {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+}
+
+.gift-image span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.scratch-layer {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.gift-caption {
+  margin: 16px 0 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.chat-window {
+  overflow: auto;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  height: min(38vh, 320px);
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid rgba(43, 32, 36, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.chat-bubble {
+  width: fit-content;
+  max-width: min(520px, 82%);
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.chat-bubble.bot {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.chat-bubble.user {
+  justify-self: end;
+  color: #fff;
+  background: var(--rose);
+}
+
+.admin-page {
+  min-height: calc(100vh - 96px);
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.json-output {
+  width: 100%;
+  margin-top: 12px;
+  border: 1px solid rgba(43, 32, 36, 0.16);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.text-button {
+  margin-top: 8px;
+  border: 0;
+  color: var(--rose-deep);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@keyframes timerTick {
+  0% {
+    transform: translateY(8px);
+    opacity: 0.2;
+  }
+  60% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes wishFly {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    top: 18vh;
+    transform: translate(-50%, -50%) scale(1.1) rotate(28deg);
+    opacity: 0.88;
+  }
+}
+
+@keyframes wishSpark {
+  to {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
+
 .heart-button {
   width: 56px;
   height: 56px;
@@ -299,6 +633,21 @@ h3 {
     padding: 24px 0;
   }
 
+  .site-topbar {
+    top: 10px;
+    width: calc(100% - 18px);
+    justify-content: center;
+  }
+
+  .love-timer {
+    gap: 5px;
+    padding: 7px 9px;
+  }
+
+  .timer-prefix {
+    display: none;
+  }
+
   .hero {
     min-height: calc(100vh - 48px);
     padding: 42px 24px;
@@ -325,5 +674,19 @@ h3 {
   .promise.single-page {
     grid-template-columns: 1fr;
     justify-items: start;
+  }
+
+  .wish-form,
+  .chat-form,
+  .gift-carousel {
+    grid-template-columns: 1fr;
+  }
+
+  .arrow-button {
+    justify-self: center;
+  }
+
+  .gift-card {
+    width: min(100%, 420px);
   }
 }
