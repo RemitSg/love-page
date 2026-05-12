@@ -1,10 +1,11 @@
-const WISH_KEY = "love-page-wishes";
+const WISH_KEY = "love-page-wishes-v2";
 const MAX_WISHES = 3;
 
 const form = document.querySelector(".wish-form");
 const input = document.querySelector(".wish-input");
 const count = document.querySelector(".wish-count strong");
 const list = document.querySelector(".wish-list");
+const clearButton = document.querySelector(".clear-wishes");
 
 function loadWishes() {
   try {
@@ -66,6 +67,11 @@ form.addEventListener("submit", (event) => {
   saveWishes(wishes);
   launchWishStar(value);
   input.value = "";
+  renderWishes();
+});
+
+clearButton.addEventListener("click", () => {
+  localStorage.removeItem(WISH_KEY);
   renderWishes();
 });
 
