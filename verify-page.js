@@ -3,9 +3,11 @@ const fs = require("fs");
 const html = fs.readFileSync("index.html", "utf8");
 const script = fs.readFileSync("script.js", "utf8");
 const particles = fs.readFileSync("home-particles.js", "utf8");
+const styles = fs.readFileSync("styles.css", "utf8");
 const letter = fs.readFileSync("letter.html", "utf8");
 const timeline = fs.readFileSync("timeline.html", "utf8");
 const whisper = fs.readFileSync("whisper.html", "utf8");
+const pages = [html, letter, timeline, whisper];
 
 function assert(condition, message) {
   if (!condition) {
@@ -25,9 +27,9 @@ assert((hero.match(/class="button/g) || []).length >= 3, "Hero should provide na
 
 assert(html.includes('class="particle-canvas"'), "Home includes the particle canvas");
 assert(html.includes('src="home-particles.js"'), "Home loads the particle script");
-assert(!letter.includes("home-particles.js"), "Letter page does not load home particles");
-assert(!timeline.includes("home-particles.js"), "Timeline page does not load home particles");
-assert(!whisper.includes("home-particles.js"), "Whisper page does not load home particles");
+assert(pages.every((page) => page.includes('class="particle-canvas"')), "Every page includes the particle canvas");
+assert(pages.every((page) => page.includes('src="home-particles.js"')), "Every page loads the particle script");
+assert(styles.includes("assets/StarrySky_x4.png"), "All pages use the StarrySky background asset");
 assert(particles.includes("pointerVelocity"), "Particle script tracks pointer velocity");
 assert(particles.includes("homeX") && particles.includes("homeY"), "Particles keep original positions");
 assert(particles.includes("requestAnimationFrame"), "Particles animate smoothly");
