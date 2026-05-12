@@ -4,20 +4,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>悄悄话 | 给你的一个小宇宙</title>
-    <meta name="description" content="点亮爱心，收下一句悄悄话。">
-    <link rel="stylesheet" href="styles.css?v=20260512-hero-fix">
+    <meta name="description" content="输入关键词，收到一条预设悄悄话。">
+    <link rel="stylesheet" href="styles.css?v=20260512-expansion">
   </head>
   <body>
     <canvas class="particle-canvas" aria-hidden="true"></canvas>
+    <header class="site-topbar">
+      <div class="love-timer" aria-label="我们在一起的时间"></div>
+      <button class="music-toggle" type="button" aria-label="播放背景音乐">♪</button>
+    </header>
     <main class="page-shell content-shell">
-      <section class="promise panel single-page" id="whisper" aria-label="一句悄悄话">
+      <section class="panel single-page chat-page" id="whisper" aria-labelledby="whisper-title">
         <a class="back-link top-link" href="index.html">回到首页</a>
-        <button class="heart-button" type="button" aria-label="点亮爱心">❤</button>
-        <p id="promise-text">点一下爱心，收下一句悄悄话。</p>
+        <a class="admin-link" href="admin.html">编辑回复</a>
+        <p class="section-kicker">Whisper</p>
+        <h1 id="whisper-title">悄悄话</h1>
+        <div class="chat-window" aria-live="polite">
+          <p class="chat-bubble bot">告诉我一个关键词，我会替他说一句悄悄话。</p>
+        </div>
+        <form class="chat-form">
+          <input class="chat-input" type="text" name="message" placeholder="输入关键词，比如：想你" autocomplete="off">
+          <button class="button primary" type="submit">发送</button>
+        </form>
       </section>
     </main>
-
     <script src="home-particles.js?v=20260512-distance-fix"></script>
-    <script src="script.js"></script>
+    <script src="shared.js?v=20260512-expansion"></script>
+    <script src="whisper.js?v=20260512-expansion"></script>
   </body>
 </html>
