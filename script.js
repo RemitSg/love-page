@@ -8,7 +8,9 @@ const messages = [
 const button = document.querySelector(".heart-button");
 const text = document.querySelector("#promise-text");
 
-button.addEventListener("click", () => {
-  const next = messages[Math.floor(Math.random() * messages.length)];
-  text.textContent = next;
-});
+if (button && text) {
+  button.addEventListener("click", () => {
+    const next = messages[Math.floor(Math.random() * messages.length)];
+    text.textContent = next;
+  });
+}
