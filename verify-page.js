@@ -37,14 +37,21 @@ assert(pages.every((page) => page.includes('class="love-timer"')), "Every page i
 assert(pages.every((page) => page.includes('class="music-toggle"')), "Every page includes music toggle");
 assert(files.styles.includes("assets/StarrySky_x4.png"), "All pages use the StarrySky background asset");
 assert(files.styles.includes("background: rgba(255, 255, 255, 0.14);"), "Home panel stays transparent");
+assert(!files.styles.includes("background: rgba(255, 255, 255, 0.58);"), "Panels should match the home transparency");
 assert(files.styles.includes("white-space: nowrap;"), "Home title stays on one line");
 
 assert(files.shared.includes('new Date("2024-10-06T00:00:00+08:00")'), "Timer starts at the requested date");
+assert(files.shared.includes('data-unit="${unit}"'), "Timer renders stable data-unit markers");
+assert(files.shared.includes('querySelector(`[data-unit="${unit}"] .timer-number`)'), "Timer updates by unit instead of nth-of-type");
+assert(!files.shared.includes("nth-of-type"), "Timer should not use positional selectors");
 assert(files.shared.includes("timer-number") && files.shared.includes("tick"), "Timer animates number updates");
 assert(files.shared.includes("music-toggle"), "Shared JS wires music placeholder");
 
 assert(files.wish.includes('class="wish-form"'), "Wish page includes form");
+assert(files.wish.includes("clear-wishes"), "Wish page can clear wishes");
 assert(files.wishes.includes("MAX_WISHES = 3"), "Wish page allows three wishes");
+assert(files.wishes.includes('WISH_KEY = "love-page-wishes-v2"'), "Wish storage key is reset");
+assert(files.wishes.includes("localStorage.removeItem(WISH_KEY)"), "Wish script clears saved wishes");
 assert(files.wishes.includes("localStorage"), "Wishes persist locally");
 assert(files.wishes.includes("wish-star") && files.wishes.includes("wish-spark"), "Wish animation creates star and particles");
 
@@ -55,10 +62,12 @@ assert((files.gifts.match(/title:/g) || []).length === 3, "Gift page defines thr
 
 assert(files.whisper.includes('class="chat-form"'), "Whisper page includes chat form");
 assert(files.whisper.includes("admin.html"), "Whisper page links to admin");
+assert(files.whisper.includes("管理关键词"), "Whisper page names the keyword editor");
 assert(files.whisperJs.includes("data/replies.json"), "Whisper loads default replies JSON");
 assert(files.whisperJs.includes("localStorage"), "Whisper supports local reply overrides");
 assert(JSON.parse(files.replies).length >= 3, "Default replies include starter rules");
 assert(files.admin.includes('class="admin-form"'), "Admin page includes editor form");
+assert(files.admin.includes("导出 JSON 后交给我更新到仓库"), "Admin explains how to update default rules");
 assert(files.adminJs.includes("export-json"), "Admin can export JSON");
 assert(files.adminJs.includes("reset-json"), "Admin can reset defaults");
 
