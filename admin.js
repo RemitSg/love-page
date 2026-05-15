@@ -9,14 +9,32 @@ const cancelButton = document.querySelector(".cancel-edit");
 let rules = [];
 let editingIndex = -1;
 
+function createDefaultRule() {
+  return {
+    isDefault: true,
+    keywords: ["默认"],
+    replies: [
+      "这个关键词我还没有学会，但我会先把你的话认真收好。",
+      "我暂时还没找到对应答案，不过这句话已经被我悄悄记下了。",
+      "这个暗号还没有登记，但我愿意认真听你说。"
+    ]
+  };
+}
+
+function ensureDefaultRule(existingRules) {
+  if (existingRules.some((rule) => rule.isDefault)) return existingRules;
+  return [...existingRules, createDefaultRule()];
+}
+
 async function loadDefaults() {
   const response = await fetch("data/replies.json");
-  return response.json();
+  return ensureDefaultRule(await response.json());
 }
 
 async function loadRules() {
   const saved = localStorage.getItem(REPLY_STORAGE_KEY);
-  rules = saved ? JSON.parse(saved) : await loadDefaults();
+  rules = saved ? ensureDefaultRule(JSON.parse(saved)) : await loadDefaults();
+  saveRules();
   renderRules();
 }
 
@@ -26,11 +44,11 @@ function saveRules() {
 
 function renderRules() {
   rulesWrap.innerHTML = rules.map((rule, index) => `
-    <article class="rule-card">
-      <strong>${rule.keywords.join(" / ")}</strong>
+    <article class="rule-card ${rule.isDefault ? "default-rule" : ""}">
+      <strong>${rule.isDefault ? "默认分组" : rule.keywords.join(" / ")}</strong>
       <p>${rule.replies.join(" | ")}</p>
       <button class="text-button edit-rule" type="button" data-index="${index}">编辑</button>
-      <button class="text-button delete-rule" type="button" data-index="${index}">删除</button>
+      <button class="text-button delete-rule" type="button" data-index="${index}" ${rule.isDefault ? "disabled" : ""}>删除</button>
     </article>
   `).join("");
 }
@@ -48,11 +66,15 @@ form.addEventListener("submit", (event) => {
   const keywords = String(data.get("keywords") || "").split(/[,，]/).map((item) => item.trim()).filter(Boolean);
   const replies = String(data.get("replies") || "").split(/\n/).map((item) => item.trim()).filter(Boolean);
   if (!keywords.length || !replies.length) return;
+  const previous = editingIndex >= 0 ? rules[editingIndex] : {};
+  const nextRule = { keywords, replies };
+  if (previous.isDefault) nextRule.isDefault = true;
   if (editingIndex >= 0) {
-    rules[editingIndex] = { keywords, replies };
+    rules[editingIndex] = nextRule;
   } else {
-    rules.push({ keywords, replies });
+    rules.push(nextRule);
   }
+  rules = ensureDefaultRule(rules);
   saveRules();
   renderRules();
   stopEditing();
@@ -72,8 +94,9 @@ rulesWrap.addEventListener("click", (event) => {
   }
 
   const deleteButton = event.target.closest(".delete-rule");
-  if (deleteButton) {
+  if (deleteButton && !deleteButton.disabled) {
     rules.splice(Number(deleteButton.dataset.index), 1);
+    rules = ensureDefaultRule(rules);
     saveRules();
     renderRules();
     stopEditing();
@@ -83,7 +106,7 @@ rulesWrap.addEventListener("click", (event) => {
 cancelButton.addEventListener("click", stopEditing);
 
 exportButton.addEventListener("click", () => {
-  output.value = JSON.stringify(rules, null, 2);
+  output.value = JSON.stringify(ensureDefaultRule(rules), null, 2);
   output.select();
 });
 
