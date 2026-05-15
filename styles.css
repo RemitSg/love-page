@@ -407,6 +407,11 @@ input:disabled {
   background: rgba(255, 255, 255, 0.54);
 }
 
+.rule-card.default-rule {
+  border-color: rgba(217, 79, 115, 0.42);
+  background: rgba(255, 255, 255, 0.62);
+}
+
 .wish-item span {
   color: var(--gold);
   font-weight: 800;
@@ -593,6 +598,11 @@ input:disabled {
   background: transparent;
   cursor: pointer;
   font-weight: 700;
+}
+
+.text-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
 }
 
 @keyframes timerTick {
