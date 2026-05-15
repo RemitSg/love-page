@@ -1,7 +1,9 @@
 const REPLY_STORAGE_KEY = "love-page-reply-rules";
+const REPLY_DELAY = 3000;
 const chatWindow = document.querySelector(".chat-window");
 const chatForm = document.querySelector(".chat-form");
 const chatInput = document.querySelector(".chat-input");
+const chatSubmit = document.querySelector(".chat-submit");
 
 async function loadReplyRules() {
   const saved = localStorage.getItem(REPLY_STORAGE_KEY);
@@ -18,6 +20,25 @@ function addBubble(text, type) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
+function addTypingIndicator() {
+  const bubble = document.createElement("p");
+  bubble.className = "chat-bubble bot typing-indicator";
+  bubble.innerHTML = '对方正在打字中<span></span><span></span><span></span>';
+  chatWindow.appendChild(bubble);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  return bubble;
+}
+
+function setWaiting(isWaiting) {
+  chatInput.disabled = true;
+  chatSubmit.disabled = true;
+  if (!isWaiting) {
+    chatInput.disabled = false;
+    chatSubmit.disabled = false;
+    chatInput.focus();
+  }
+}
+
 function findReply(message, rules) {
   const normalized = message.toLowerCase();
   const rule = rules.find((item) => item.keywords.some((keyword) => normalized.includes(keyword.toLowerCase())));
@@ -29,10 +50,17 @@ let rulesPromise = loadReplyRules();
 
 chatForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (chatInput.disabled) return;
   const message = chatInput.value.trim();
   if (!message) return;
   chatInput.value = "";
   addBubble(message, "user");
+  setWaiting(true);
+  const typing = addTypingIndicator();
   const rules = await rulesPromise;
-  window.setTimeout(() => addBubble(findReply(message, rules), "bot"), 220);
+  window.setTimeout(() => {
+    typing.remove();
+    addBubble(findReply(message, rules), "bot");
+    setWaiting(false);
+  }, REPLY_DELAY);
 });
