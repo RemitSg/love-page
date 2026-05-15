@@ -61,15 +61,24 @@ assert(files.gifts.includes("prev-card") && files.gifts.includes("next-card"), "
 assert((files.gifts.match(/title:/g) || []).length === 3, "Gift page defines three cards");
 
 assert(files.whisper.includes('class="chat-form"'), "Whisper page includes chat form");
+assert(files.whisper.includes('<div class="chat-window" aria-live="polite"></div>'), "Whisper chat starts empty");
+assert(!files.whisper.includes("告诉我一个关键词"), "Whisper should not show the initial prompt bubble");
 assert(files.whisper.includes("admin.html"), "Whisper page links to admin");
 assert(files.whisper.includes("管理关键词"), "Whisper page names the keyword editor");
 assert(files.whisperJs.includes("data/replies.json"), "Whisper loads default replies JSON");
 assert(files.whisperJs.includes("localStorage"), "Whisper supports local reply overrides");
+assert(files.whisperJs.includes("REPLY_DELAY = 3000"), "Whisper replies wait for three seconds");
+assert(files.whisperJs.includes("typing-indicator"), "Whisper shows typing indicator");
+assert(files.whisperJs.includes("chatInput.disabled = true"), "Whisper disables input while replying");
 assert(JSON.parse(files.replies).length >= 3, "Default replies include starter rules");
 assert(files.admin.includes('class="admin-form"'), "Admin page includes editor form");
 assert(files.admin.includes("导出 JSON 后交给我更新到仓库"), "Admin explains how to update default rules");
 assert(files.adminJs.includes("export-json"), "Admin can export JSON");
 assert(files.adminJs.includes("reset-json"), "Admin can reset defaults");
+assert(files.adminJs.includes("editingIndex"), "Admin can edit existing rules");
+assert(files.adminJs.includes("edit-rule"), "Admin renders edit buttons");
+assert(files.adminJs.includes("submitButton.textContent"), "Admin changes submit button while editing");
+assert(files.styles.includes("typing-indicator"), "Typing indicator has styles");
 
 assert(files.particles.includes("const PARTICLE_COUNT = 1000"), "Particles remain at requested count");
 assert(files.particles.includes("const PARTICLE_SIZE = 2.3"), "Particles remain at requested size");
