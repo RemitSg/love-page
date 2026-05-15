@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>悄悄话 | 给你的一个小宇宙</title>
     <meta name="description" content="输入关键词，收到一条预设悄悄话。">
-    <link rel="stylesheet" href="styles.css?v=20260512-expansion">
+    <link rel="stylesheet" href="styles.css?v=20260512-chat-edit">
   </head>
   <body>
     <canvas class="particle-canvas" aria-hidden="true"></canvas>
@@ -19,17 +19,15 @@
         <a class="admin-link" href="admin.html">管理关键词</a>
         <p class="section-kicker">Whisper</p>
         <h1 id="whisper-title">悄悄话</h1>
-        <div class="chat-window" aria-live="polite">
-          <p class="chat-bubble bot">告诉我一个关键词，我会从预设回答里选一句悄悄话。</p>
-        </div>
+        <div class="chat-window" aria-live="polite"></div>
         <form class="chat-form">
           <input class="chat-input" type="text" name="message" placeholder="输入关键词，比如：想你" autocomplete="off">
-          <button class="button primary" type="submit">发送</button>
+          <button class="button primary chat-submit" type="submit">发送</button>
         </form>
       </section>
     </main>
     <script src="home-particles.js?v=20260512-distance-fix"></script>
     <script src="shared.js?v=20260512-expansion"></script>
-    <script src="whisper.js?v=20260512-expansion"></script>
+    <script src="whisper.js?v=20260512-chat-edit"></script>
   </body>
 </html>
