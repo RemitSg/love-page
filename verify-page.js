@@ -7,6 +7,7 @@ const files = {
   whisper: fs.readFileSync("whisper.html", "utf8"),
   wish: fs.readFileSync("wish.html", "utf8"),
   gift: fs.readFileSync("gift.html", "utf8"),
+  fireworks: fs.readFileSync("fireworks.js", "utf8"),
   admin: fs.readFileSync("admin.html", "utf8"),
   styles: fs.readFileSync("styles.css", "utf8"),
   particles: fs.readFileSync("home-particles.js", "utf8"),
@@ -30,6 +31,7 @@ const pages = [files.home, files.letter, files.timeline, files.whisper, files.wi
 assert(files.home.includes("<h1 id=\"title\">给最特别的你</h1>"), "Hero keeps the main title");
 assert(files.home.includes('href="wish.html"'), "Home links to wish page");
 assert(files.home.includes('href="gift.html"'), "Home links to gift page");
+assert(files.home.includes('href="timeline.html">看信</a>'), "Home labels the old timeline entry as a letter");
 assert(pages.every((page) => page.includes('class="particle-canvas"')), "Every page includes the particle canvas");
 assert(pages.every((page) => page.includes('src="home-particles.js?v=20260512-distance-fix"')), "Every page loads particles");
 assert(pages.every((page) => page.includes('src="shared.js?v=20260512-expansion"')), "Every page loads shared JS");
@@ -56,15 +58,20 @@ assert(files.wishes.includes("localStorage"), "Wishes persist locally");
 assert(files.wishes.includes("wish-star") && files.wishes.includes("wish-spark"), "Wish animation creates star and particles");
 
 assert(files.gift.includes('class="scratch-layer"'), "Gift page includes scratch canvas");
+assert(files.gift.includes("scratch-progress"), "Gift page includes scratch progress");
+assert(files.gift.includes("reset-scratch"), "Gift page can reset scratch cover");
 assert(files.gifts.includes("destination-out"), "Gift scratch canvas reveals card");
 assert(files.gifts.includes("prev-card") && files.gifts.includes("next-card"), "Gift cards can switch left/right");
 assert((files.gifts.match(/title:/g) || []).length === 3, "Gift page defines three cards");
+assert(files.gifts.includes("getScratchProgress"), "Gift scratch mechanism tracks progress");
+assert(files.gifts.includes("revealCard"), "Gift card auto reveals when scratched enough");
+assert(files.gifts.includes("image:"), "Gift cards have image placeholders");
 
 assert(files.whisper.includes('class="chat-form"'), "Whisper page includes chat form");
 assert(files.whisper.includes('<div class="chat-window" aria-live="polite"></div>'), "Whisper chat starts empty");
 assert(!files.whisper.includes("告诉我一个关键词"), "Whisper should not show the initial prompt bubble");
-assert(files.whisper.includes("admin.html"), "Whisper page links to admin");
-assert(files.whisper.includes("管理关键词"), "Whisper page names the keyword editor");
+assert(!files.whisper.includes("admin-link"), "Whisper page removes the visible admin tail");
+assert(!files.whisper.includes("管理关键词"), "Whisper page removes the visible keyword manager link");
 assert(files.whisperJs.includes("data/replies.json"), "Whisper loads default replies JSON");
 assert(files.whisperJs.includes("localStorage"), "Whisper supports local reply overrides");
 assert(files.whisperJs.includes("ensureDefaultRule"), "Whisper preserves existing rules and appends a default group");
@@ -92,3 +99,12 @@ assert(files.particles.includes("const PARTICLE_COUNT = 1000"), "Particles remai
 assert(files.particles.includes("const PARTICLE_SIZE = 2.3"), "Particles remain at requested size");
 assert(files.particles.includes("distanceToPointer < FOLLOW_RADIUS"), "Particles use current pointer distance to follow");
 assert(files.particles.includes("particle.x + (pointer.x - particle.x) * pull"), "Particle follow uses current position");
+
+assert(files.timeline.includes("给你的一封信"), "Timeline page becomes a letter page");
+assert(files.timeline.includes("firework-canvas"), "Letter page includes fireworks canvas");
+assert(files.timeline.includes("bloom-layer"), "Letter page includes bloom layer");
+assert(files.timeline.includes("fireworks.js?v=20260527-fireworks"), "Letter page loads fireworks script");
+assert(files.fireworks.includes("globalCompositeOperation = \"lighter\""), "Fireworks use additive glow");
+assert(files.fireworks.includes("createRadialGradient"), "Fireworks use glow gradients");
+assert(files.styles.includes(".bloom-layer"), "Bloom layer has styles");
+assert(files.styles.includes("@keyframes bloomPulse"), "Bloom layer animates");
