@@ -31,7 +31,9 @@ const pages = [files.home, files.letter, files.timeline, files.whisper, files.wi
 assert(files.home.includes("<h1 id=\"title\">给最特别的你</h1>"), "Hero keeps the main title");
 assert(files.home.includes('href="wish.html"'), "Home links to wish page");
 assert(files.home.includes('href="gift.html"'), "Home links to gift page");
-assert(files.home.includes('href="timeline.html">看信</a>'), "Home labels the old timeline entry as a letter");
+assert(files.home.includes('class="button primary" href="timeline.html"'), "Home keeps one primary letter entry pointing to the firework letter page");
+assert(!files.home.includes('href="letter.html"'), "Home does not show the old letter entry");
+assert(!files.home.includes("看信"), "Home does not show a second letter-related entry");
 assert(pages.every((page) => page.includes('class="particle-canvas"')), "Every page includes the particle canvas");
 assert(pages.every((page) => page.includes('src="home-particles.js?v=20260512-distance-fix"')), "Every page loads particles");
 assert(pages.every((page) => page.includes('src="shared.js?v=20260512-expansion"')), "Every page loads shared JS");
