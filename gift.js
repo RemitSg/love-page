@@ -1,8 +1,9 @@
+(() => {
 const gifts = [
   {
     title: "第一张礼物卡",
     text: "兑换一次认真安排的约会",
-    image: "",
+    image: "assets/fish.png",
     colors: ["#f7d1dc", "#b7d9e8"]
   },
   {
@@ -142,3 +143,4 @@ resetButton.addEventListener("click", resetScratch);
 window.addEventListener("resize", resetScratch);
 
 showGift(0);
+})();
