@@ -480,6 +480,10 @@ input:disabled {
   gap: 16px;
 }
 
+.gift-carousel.single-gift {
+  grid-template-columns: minmax(260px, 640px);
+}
+
 .arrow-button {
   width: 46px;
   height: 46px;
@@ -491,7 +495,7 @@ input:disabled {
 .gift-card {
   position: relative;
   overflow: hidden;
-  width: min(520px, 70vw);
+  width: min(640px, 78vw);
   aspect-ratio: 4 / 3;
   border-radius: 8px;
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);

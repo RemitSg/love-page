@@ -1,26 +1,8 @@
 (() => {
-const gifts = [
-  {
-    title: "第一张礼物卡",
-    text: "兑换一次认真安排的约会",
-    image: "assets/fish.png",
-    colors: ["#f7d1dc", "#b7d9e8"]
-  },
-  {
-    title: "第二张礼物卡",
-    text: "兑换一个只属于你的惊喜",
-    image: "",
-    colors: ["#ffe3a8", "#d9ece4"]
-  },
-  {
-    title: "第三张礼物卡",
-    text: "兑换一个大大的拥抱",
-    image: "",
-    colors: ["#cbb7ff", "#ffd0e1"]
-  }
-];
+const gift = {
+  image: "assets/fish.png"
+};
 
-let currentGift = 0;
 let scratching = false;
 let revealed = false;
 
@@ -28,19 +10,12 @@ const card = document.querySelector(".gift-card");
 const image = document.querySelector(".gift-image");
 const canvas = document.querySelector(".scratch-layer");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
-const caption = document.querySelector(".gift-caption");
-const prev = document.querySelector(".prev-card");
-const next = document.querySelector(".next-card");
 const progressBar = document.querySelector(".scratch-progress span");
 const resetButton = document.querySelector(".reset-scratch");
 
 function paintGift() {
-  const gift = gifts[currentGift];
-  image.style.background = gift.image
-    ? `center / cover no-repeat url("${gift.image}")`
-    : `linear-gradient(135deg, ${gift.colors[0]}, ${gift.colors[1]})`;
-  image.innerHTML = `<strong>${gift.title}</strong><span>${gift.text}</span>`;
-  caption.textContent = `${currentGift + 1} / ${gifts.length}`;
+  image.style.background = `center / cover no-repeat url("${gift.image}")`;
+  image.innerHTML = "";
 }
 
 function resetScratch() {
@@ -113,12 +88,6 @@ function revealCard() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function showGift(index) {
-  currentGift = (index + gifts.length) % gifts.length;
-  paintGift();
-  requestAnimationFrame(resetScratch);
-}
-
 canvas.addEventListener("pointerdown", (event) => {
   scratching = true;
   canvas.setPointerCapture(event.pointerId);
@@ -137,10 +106,9 @@ canvas.addEventListener("pointercancel", () => {
   scratching = false;
 });
 
-prev.addEventListener("click", () => showGift(currentGift - 1));
-next.addEventListener("click", () => showGift(currentGift + 1));
 resetButton.addEventListener("click", resetScratch);
 window.addEventListener("resize", resetScratch);
 
-showGift(0);
+paintGift();
+requestAnimationFrame(resetScratch);
 })();
